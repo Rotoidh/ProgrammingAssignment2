@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#This is an attempt to make matrix inversion more efficient by\n#caching the inverse of a matrix. It should make for a less\n#costly computation by avoiding the repeated process of\n#computing the inverse of a matrix.\n# makeCacheMatrix creates a list containing a function to\n# 1. set the value of the matrix\n# 2. get the value of the matrix\n# 3. set the value of inverse of the matrix\n# 4. get the value of inverse of the matrix\nmakeCacheMatrix <- function(x = matrix()) {\n  #initialize a null variable, will store cached value\n  cachedinv <- NULL\n  #set matrix\n  setmatrix <- function(y) {\n    x <<- y\n    inv <<- NULL\n  }\n  #get matrix\n  getmatrix <- function() x\n  #set inverse matrix\n  setinverted <- function(inverse) cachedinv <<- inverse\n  #get inverted matrix\n  getinverted <- function() cachedinv\n  #return functions matrix\n  list(setmatrix = setmatrix, getmatrix = getmatrix, setinverted = setinverted, getinverted = getinverted)\n}\n# This function will attempt to compute the inverse of the\n# matrix, returning the cached inverse if available.\ncacheSolve <- function(x, ...) {\n  cachedinv <- x$getinverted()\n  #return cached calculation if available\n  if (!is.null(cachedinv)){\n    message(\"cached data load\")\n    return(cachedinv)\n  }\n  #no data cached, calculate\n  calc <- x$getmatrix()\n  cachedinv <- solve(calc,...)\n  #cache inverse of new calculation\n  x$setinverted(cachedinv)\n  #return cached new calculation\n  cachedinv\n}\na <- diag(5,3)\na\nCachedMatrix <- makeCacheMatrix(a)\ncacheSolve(CachedMatrix)\nb <- diag(2,6)\nbn\nb\nCachedMatrix2<-makeCacheMatrix(b)\ncacheSolve(CachedMatrix2)\n\n",
+    "created" : 1487550787017.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2931330417",
+    "id" : "6FF11D03",
+    "lastKnownWriteTime" : 1487550795,
+    "last_content_update" : 1487550795030,
+    "path" : "~/GitHub/ProgrammingAssignment2/cachematrix.R",
+    "project_path" : "cachematrix.R",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
